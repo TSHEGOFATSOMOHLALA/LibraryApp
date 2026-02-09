@@ -1,0 +1,11 @@
+{% extends "BikeRentalApp/base.html" %}
+{% block content %}
+<h2>Rental History</h2>
+<ul>
+  {% for rental in rentals %}
+    <li>{{ rental.renter }} rented {{ rental.bike }} on {{ rental.date }} for R{{ rental.price }}</li>
+  {% empty %}
+    <li>No rentals yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "BikeRentalApp/base.html" %}
+{% block content %}
+<h2>Registered Renters</h2>
+<ul>
+  {% for renter in renters %}
+    <li>{{ renter.first_name }} {{ renter.last_name }} ({{ renter.phone }})</li>
+  {% empty %}
+    <li>No renters found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

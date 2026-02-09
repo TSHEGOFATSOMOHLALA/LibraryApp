@@ -1,0 +1,11 @@
+{% extends "BikeRentalApp/base.html" %}
+{% block content %}
+<h2>Available Bikes</h2>
+<ul>
+  {% for bike in bikes %}
+    <li>{{ bike.bike_type }} - {{ bike.color }}</li>
+  {% empty %}
+    <li>No bikes available.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

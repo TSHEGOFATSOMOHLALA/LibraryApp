@@ -1,0 +1,26 @@
+{% extends "products/base_products.html" %}
+
+{% block content %}
+<h2>All Products</h2>
+
+<div class="products-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <div class="product-image">
+            {% if product.image %}
+                <img src="{{ product.image }}" alt="{{ product.name }}">
+            {% else %}
+                📦
+            {% endif %}
+        </div>
+        
+        <div class="product-info">
+            <h3>{{ product.name }}</h3>
+            <p>Category: {{ product.get_category_display }}</p>
+            <p>Price: ${{ product.price }}</p>
+            <a href="{% url 'product_detail' product.id %}">View Details</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

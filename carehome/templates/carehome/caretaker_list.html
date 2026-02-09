@@ -1,0 +1,13 @@
+{% extends "carehome/base.html" %}
+
+
+{% block content %}
+<h2>Caretaker List</h2>
+<ul>
+    {% for caretaker in caretakers %}
+        <li>{{ caretaker.caretaker_name }} {{ caretaker.caretaker_surname}} (Code: {{ caretaker.caretaker_code }}) – Shift: {{caretaker.get_shift_type_display }}</li>
+    {% empty %}
+        <li>No caretakers available.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

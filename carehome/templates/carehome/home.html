@@ -1,0 +1,12 @@
+{% extends "carehome/base.html" %}
+
+
+{% block content %}
+<p>Select an option below:</p>
+<ul>
+    <li><a href="{% url 'resident_list' %}">View Residents</a></li>
+    <li><a href="{% url 'caretaker_list' %}">View Caretakers</a></li>
+    <li><a href="{% url 'assistance_list' %}">View Assistance
+ Records</a></li>
+</ul>
+{% endblock %}
