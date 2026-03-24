@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg:          #0f0e0c;
+            --surface:     #1a1815;
+            --surface-2:   #232018;
+            --border:      #2e2b24;
+            --green:       #4caf7d;
+            --green-light: #81d4a8;
+            --green-pale:  rgba(76,175,125,0.08);
+            --teal:        #2a9d8f;
+            --teal-dim:    #2a7a5a;
+            --red:         #b84a38;
+            --text:        #e8e0d0;
+            --text-soft:   #9a9080;
+            --text-muted:  #5a5248;
+            --radius:      6px;
+            --radius-lg:   12px;
+        }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text);
+            background-color: var(--bg);
+            background-image: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(76,175,125,0.06) 0%, transparent 70%);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.25;
+        }
+
+        h1 { font-size: 2rem; letter-spacing: -0.3px; }
+        h2 { font-size: 1.5rem; }
+        h3 { font-size: 1.15rem; }
+
+        p {
+            color: var(--text-soft);
+            margin-bottom: 0.75em;
+        }
+
+        a {
+            color: var(--green);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover { color: var(--green-light); }
+
+        .navbar {
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 62px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .navbar::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--green), transparent);
+            opacity: 0.5;
+        }
+
+        .brand a {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            font-style: italic;
+            color: var(--green-light);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: var(--text-soft);
+            padding: 7px 14px;
+            border-radius: var(--radius);
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: var(--green-pale);
+            color: var(--green-light);
+        }
+
+        .welcome {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-right: 6px;
+        }
+
+        .page-wrapper {
+            max-width: 1080px;
+            margin: 36px auto;
+            padding: 0 24px;
+        }
+
+        .page-heading {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .page-heading::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border), transparent);
+        }
+
+        .content-card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px 36px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--green), var(--teal), transparent);
+            opacity: 0.7;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        thead tr {
+            border-bottom: 1px solid var(--green);
+        }
+
+        th {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 10px 14px;
+            text-align: left;
+            background: transparent;
+            font-weight: 500;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-soft);
+            vertical-align: middle;
+        }
+
+        tr:last-child td { border-bottom: none; }
+
+        tbody tr { transition: background-color 0.15s; }
+
+        tbody tr:hover { background-color: var(--green-pale); }
+
+        .btn,
+        input[type="submit"],
+        button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'DM Mono', monospace;
+            font-size: 12.5px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 9px 20px;
+            border-radius: var(--radius);
+            border: 1px solid var(--teal-dim);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            background-color: var(--teal-dim);
+            color: #fff;
+        }
+
+        .btn:hover,
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: var(--green);
+            border-color: var(--green);
+            box-shadow: 0 0 16px rgba(76,175,125,0.25);
+            color: #fff;
+        }
+
+        .btn-edit {
+            background-color: transparent;
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .btn-edit:hover {
+            background-color: var(--green);
+            color: var(--bg);
+            box-shadow: 0 0 16px rgba(76,175,125,0.25);
+        }
+
+        .btn-delete {
+            background-color: transparent;
+            border-color: var(--text-muted);
+            color: var(--text-muted);
+        }
+
+        .btn-delete:hover {
+            background-color: var(--red);
+            border-color: var(--red);
+            color: #fff;
+            box-shadow: 0 0 16px rgba(184,74,56,0.25);
+        }
+
+        .btn-sm { padding: 6px 12px; font-size: 11px; }
+
+        form { margin-top: 16px; }
+
+        label {
+            display: block;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.9px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            margin-top: 20px;
+        }
+
+        label:first-child { margin-top: 0; }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="password"],
+        input[type="search"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            color: var(--text);
+            background-color: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            appearance: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(76,175,125,0.12);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            border: 1px solid;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-available { background-color: rgba(76,175,125,0.1);  color: var(--green); border-color: rgba(76,175,125,0.3); }
+        .badge-borrowed  { background-color: rgba(42,157,143,0.1);  color: var(--teal);  border-color: rgba(42,157,143,0.3); }
+        .badge-overdue   { background-color: rgba(184,74,56,0.1);   color: #d06050;      border-color: rgba(184,74,56,0.3); }
+
+        .alert {
+            padding: 12px 18px;
+            border-radius: var(--radius);
+            font-size: 14px;
+            margin-bottom: 20px;
+            border-left: 3px solid;
+        }
+
+        .alert-success { background: rgba(76,175,125,0.08);  color: var(--green-light); border-color: var(--green); }
+        .alert-warning { background: rgba(42,157,143,0.08);  color: #6ecebe;            border-color: var(--teal);  }
+        .alert-error   { background: rgba(184,74,56,0.08);   color: #e07060;            border-color: var(--red);   }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            margin-top: 32px;
+        }
+
+        .pagination a,
+        .pagination span {
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            padding: 7px 13px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            color: var(--text-soft);
+            transition: all 0.15s;
+            text-decoration: none;
+        }
+
+        .pagination a:hover {
+            background-color: var(--green-pale);
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .pagination .current {
+            background-color: var(--green);
+            color: var(--bg);
+            border-color: var(--green);
+            font-weight: 500;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 18px;
+            margin-top: 24px;
+        }
+
+        .book-card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px 18px;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            position: relative;
+        }
+
+        .book-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+            border-color: var(--green);
+        }
+
+        .book-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 14px; bottom: 14px;
+            width: 3px;
+            background: linear-gradient(180deg, var(--green), var(--teal));
+            border-radius: 0 3px 3px 0;
+        }
+
+        .book-card h3 {
+            font-size: 0.95rem;
+            font-style: italic;
+            margin-bottom: 4px;
+        }
+
+        .book-card .author {
+            font-family: 'DM Mono', monospace;
+            font-size: 10.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 12px;
+        }
+
+        hr, .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 24px 0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 40px;
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 14px 18px; height: auto; }
+            .page-wrapper { margin: 24px auto; padding: 0 16px; }
+            .content-card { padding: 22px 18px; }
+            h1 { font-size: 1.6rem; }
+            .book-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="brand">
+            <a href="{% url 'libraryapp:home' %}">My Library</a>
+        </div>
+
+        <div class="nav-links">
+            <a href="{% url 'libraryapp:home' %}">Home</a>
+            <a href="{% url 'libraryapp:authorlist' %}">Authors</a>
+            <a href="{% url 'libraryapp:booklist' %}">Books</a>
+
+            {% if user.is_authenticated %}
+                <span class="welcome">Welcome, {{ user.username }}</span>
+                <a href="{% url 'libraryapp:logout' %}">Log Out</a>
+            {% else %}
+                <a href="{% url 'login' %}?next={% url 'libraryapp:home' %}">Log In</a>
+                <a href="{% url 'libraryapp:signup'%}?next={% url 'login' %}">Sign Up</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="content-card">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="footer">
+        library Management System
+    </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

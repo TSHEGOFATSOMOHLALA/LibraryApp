@@ -1,21 +1,21 @@
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.log
-
-# Django
+BikeRentalApp/
+EventApp/
+blog/
+caerhome/
+home/
+library/
+news/
+pages/
+polls/
+products/
+solo1/
+tasks/
+tourist_attractions/
+vetoffice/
+vetoffice2/
 db.sqlite3
-media/
-staticfiles/
-
-# Virtual environment
-venv/
-env/
-
-# Environment variables
+*.pyc
+__pycache__/
 .env
-
-git add .
-git commit -m "Add .gitignore and initial project files"
-
+*.log
+venv/

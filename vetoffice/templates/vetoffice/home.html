@@ -1,8 +1,56 @@
-{% extends "./base.html" %}
+{% extends "vetoffice/base.html" %}
+
 {% block content %}
 
-{% for pet in pets %}
-<p>{{ pet.petname }}, {{ pet.animal_type}}</p>
-{% endfor %}
+<h1>Welcome to the Vet Office Management System</h1>
+
+<p>
+This system helps veterinary clinics manage owners and their patients efficiently.
+You can use the system to maintain records of pet owners and the animals registered
+with the clinic.
+</p>
+
+<h2>System Features</h2>
+
+<ul>
+    <li>Maintain a list of pet owners.</li>
+    <li>Register and manage animal patients.</li>
+    <li>Update owner and patient information.</li>
+    <li>Remove records that are no longer needed.</li>
+</ul>
+
+<h2>Getting Started</h2>
+
+<p>
+Use the navigation menu above to view the available records in the system.
+</p>
+
+<ul>
+    <li>
+        <strong>Owners</strong> – View, add, edit, or delete owner information.
+    </li>
+    <li>
+        <strong>Patients</strong> – View, add, edit, or delete animal patient records.
+    </li>
+</ul>
+
+{% if user.is_authenticated %}
+<p>
+You are currently logged in as <strong>{{ user.username }}</strong>. You may create,
+update, and delete records in the system.
+</p>
+{% else %}
+<p>
+Please log in if you would like to create or modify records.
+</p>
+{% endif %}
+
+<h2>About This System</h2>
+
+<p>
+The Vet Office Management System is a simple web application built with the Django
+framework. It demonstrates how databases and web applications can be used together
+to manage information in a veterinary practice.
+</p>
 
 {% endblock %}
